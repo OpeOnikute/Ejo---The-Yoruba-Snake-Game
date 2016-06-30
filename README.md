@@ -19,7 +19,7 @@ The game was built on Python 2.78, but any latter version works. The required fr
 
 You could also create a [virtualenv](https://www.google.com.ng/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjFi8XbrM_NAhWrCcAKHfXvCCgQFggcMAA&url=http%3A%2F%2Fdocs.python-guide.org%2Fen%2Flatest%2Fdev%2Fvirtualenvs%2F&usg=AFQjCNEvupNSRAVxfumkI5JFoxABd0GHhQ&sig2=HZIahDpW2zapyX1ZGp8C_g), with Python 2.78, then install Pygame and Pyganim in the environment to be safe. 
 
-<h3>Features to be added><h3>
+<h3>Features to be added</h3>
 <h4>Soundtrack</h4>
 We've been looking for a proper soundtrack, which is ideally a fast-paced Fuji beat. If you have any, submit a pull request while re-working the code and adding sound if you know how to. If you don't submit a pull request with the link to the sound regardless.
 
