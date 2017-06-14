@@ -54,18 +54,18 @@ FPS = 30
 direction = 'right'
 
 # Loading the fonts to be used
-extra_smallfont = pygame.font.SysFont(r'comicsans', 15)
-smallfont = pygame.font.SysFont(r'comicsans', 20)
+extra_small_font = pygame.font.SysFont(r'comicsans', 15)
+small_font = pygame.font.SysFont(r'comicsans', 20)
 # small2font = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 40)
 small2font = pygame.font.SysFont(r'comicsans', 40)
-medfont = pygame.font.SysFont(r'comicsans', 50)
-# medfontButton = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 50)
-medfontButton = pygame.font.SysFont(r'comicsans', 50)
-# medfontButton2 = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 80)
-medfontButton2 = pygame.font.SysFont(r'comicsans', 80)
-largefont = pygame.font.SysFont(r'comicsans', 80)
+med_font = pygame.font.SysFont(r'comicsans', 50)
+# med_fontButton = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 50)
+med_fontButton = pygame.font.SysFont(r'comicsans', 50)
+# med_fontButton2 = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 80)
+med_fontButton2 = pygame.font.SysFont(r'comicsans', 80)
+large_font = pygame.font.SysFont(r'comicsans', 80)
 # rendering the font for the copyright display at the bottom.
-sign = extra_smallfont.render('©2017.', True, white)
+sign = extra_small_font.render('©2017.', True, white)
 
 
 def message_to_screen(msg, color, y_displace=0, x_displace=0, size="small", font=None, font_size=None):
@@ -81,11 +81,11 @@ def message_to_screen(msg, color, y_displace=0, x_displace=0, size="small", font
     """
     text_surf, text_rect = text_objects(msg, color, size, font, font_size)
     text_rect.center = (display_width / 2)+x_displace, (display_height /2)+y_displace
-    # flashSurf = pygame.Surface((textSurf.get_width(), textSurf.get_height()))
+    # flashSurf = pygame.Surface((text_surf.get_width(), text_surf.get_height()))
     # flashSurf = flashSurf.convert_alpha()
 
     gameDisplay.blit(text_surf, text_rect)
-    # origSurf = textSurf.copy()
+    # origSurf = text_surf.copy()
 
 
 def pause():
@@ -116,7 +116,7 @@ def score_update(score):
     :param score:
     :return:
     """
-    text = smallfont.render('Score: ' + str(score), True, white)
+    text = small_font.render('Score: ' + str(score), True, white)
     gameDisplay.blit(text, [display_width - 765,20])
 
 
@@ -176,19 +176,19 @@ def text_to_button(msg, color, inactive_color, buttonx, buttony, buttonwidth, bu
     :return:
     """
 
-    textSurf, textRect = text_objects_button(msg, color, size)
-    textSize = textSurf.get_width()
-    
-    # textRect.center = ((buttonx+(buttonwidth/2)), buttony+(buttonheight/2))
+    text_surf, text_rect = text_objects_button(msg, color, size)
+    text_size = text_surf.get_width()
+
+    # text_rect.center = ((buttonx+(buttonwidth/2)), buttony+(buttonheight/2))
     cur = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    gameDisplay.blit(textSurf, (buttonx, buttony))
+    gameDisplay.blit(text_surf, (buttonx, buttony))
 
-    if buttonx + textSize > cur[0] > buttonx and buttony + textSurf.get_height() > cur[1] > buttony:
-        textSurf2, textRect2 = text_objects_button(msg, inactive_color, size)
-        gameDisplay.blit(textSurf2, (buttonx-2, buttony-2))
+    if buttonx + text_size > cur[0] > buttonx and buttony + text_surf.get_height() > cur[1] > buttony:
+        text_surf2, text_rect2 = text_objects_button(msg, inactive_color, size)
+        gameDisplay.blit(text_surf2, (buttonx - 2, buttony - 2))
 
-        if click[0] == 1 and action != None:
+        if click[0] == 1 and action is not None:
             if action == 'quit':
                 pygame.quit()
                 quit()
@@ -219,10 +219,10 @@ def game_intro():
 
         gameDisplay.fill(white)
 
-        gameDisplay.blit(welcome_screen,  (0,0))
+        gameDisplay.blit(welcome_screen, (0, 0))
         gameDisplay.blit(sign, [display_width/2 - 50,display_height-20])
 
-        text_to_button('Play', yellow, light_yellow, 298,440,80,40, size = 'medium2', action = 'play')
+        text_to_button('Play', yellow, light_yellow, 298, 440, 80, 40, size='medium2', action='play')
 
         text_to_button('Controls', black, light_green, 102,467,100,40,  size = 'small', action = 'controls')
         text_to_button('Controls', green, light_green, 100,465,100,40,  size = 'small', action = 'controls')
@@ -274,6 +274,8 @@ def Snake(block_size, snakeList):
     :return:
     """
 
+    head = None
+    
     if direction == 'right':
         head = pygame.transform.rotate(img, 270)
     if direction == 'left':
@@ -282,7 +284,9 @@ def Snake(block_size, snakeList):
         head = img
     if direction == 'down':
         head = pygame.transform.rotate(img, 180)
+
     gameDisplay.blit(head,  (snakeList[-1][0], snakeList[-1][1]))
+
     for XnY in snakeList[:-1]:
         gameDisplay.blit(skin,  (XnY[0], XnY[1]))
         # pygame.draw.rect(gameDisplay, green, [XnY[0], XnY[1], block_size, block_size])
@@ -297,17 +301,20 @@ def text_objects(text, color, size = None,  font = None, fontSize = None):
     :param fontSize:
     :return:
     """
+
+    text_surface = None
+
     if size == 'small':
-        textSurface = smallfont.render(text, True, color)
+        text_surface = small_font.render(text, True, color)
     elif size == 'medium':
-        textSurface = medfontButton.render(text, True, color)
+        text_surface = med_fontButton.render(text, True, color)
     elif size == 'large':
-        textSurface = largefont.render(text, True, color)
-    elif font != None:
+        text_surface = large_font.render(text, True, color)
+    elif font is not None:
         font = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts' + '\\' + font , fontSize)
-        textSurface = font.render(text, True, color)
-        
-    return textSurface, textSurface.get_rect()
+        text_surface = font.render(text, True, color)
+
+    return text_surface, text_surface.get_rect()
 
 
 def text_objects_button(text, color, size=None):
@@ -317,16 +324,19 @@ def text_objects_button(text, color, size=None):
     :param size:
     :return:
     """
-    if size == 'small':
-        textSurface = small2font.render(text, True, color)
-    elif size == 'medium':
-        textSurface = medfontButton.render(text, True, color)
-    elif size == 'medium2':
-        textSurface = medfontButton2.render(text, True, color)
-    elif size == 'large':
-        textSurface = largefont.render(text, True, color)
 
-    return textSurface, textSurface.get_rect()
+    text_surface = None
+
+    if size == 'small':
+        text_surface = small2font.render(text, True, color)
+    elif size == 'medium':
+        text_surface = med_fontButton.render(text, True, color)
+    elif size == 'medium2':
+        text_surface = med_fontButton2.render(text, True, color)
+    elif size == 'large':
+        text_surface = large_font.render(text, True, color)
+
+    return text_surface, text_surface.get_rect()
 
 
 def health_bars(snake_health):
@@ -340,7 +350,7 @@ def health_bars(snake_health):
         snake_health_color = yellow
     else:
         snake_health_color = red
-    health_text = smallfont.render('Health: ', True, white)
+    health_text = small_font.render('Health: ', True, white)
     gameDisplay.blit(health_text,[display_width-210, 20])
     pygame.draw.rect(gameDisplay, black , (display_width-131, 25, 92, 22))
     pygame.draw.rect(gameDisplay, white , (display_width-130, 26, 90, 20))
@@ -511,7 +521,7 @@ def gameLoop():
                score_value += 4
 
         # The bonus handling code:
-        # bonus_text = medfont.render('Bonus:  +4', True, black)
+        # bonus_text = med_font.render('Bonus:  +4', True, black)
         if score_value == 17 or score_value == 49 or score_value == 81 or score_value == 113 or score_value == 145:
             # gameDisplay.blit(bonus_text, [display_width/2 - 200, 100])
             bonusAnim.play()
