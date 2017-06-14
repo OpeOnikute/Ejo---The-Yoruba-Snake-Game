@@ -29,11 +29,11 @@ yellow = (255, 255, 128)
 light_yellow = (255, 255, 228)
 
 # loading the animations
-gameOverAnim = pyganim.PygAnimation([(images_path+'game_over2.png', 150), (images_path+'game_over3.png', 100)])
+game_overAnim = pyganim.PygAnimation([(images_path + 'game_over2.png', 150), (images_path + 'game_over3.png', 100)])
 bonusAnim = pyganim.PygAnimation([(images_path+'bonus_text1.png', 150), (images_path+'bonus_text2.png', 100)])
 
 # loading the images
-icon = pygame.image.load(images_path+'snakeHead.png')
+icon = pygame.image.load(images_path + 'snake_head.png')
 img = pygame.image.load(images_path+'snake.png')
 eba = pygame.image.load(images_path+'eba2.png')
 bgd = pygame.image.load(images_path+'bgd.png')
@@ -155,10 +155,10 @@ def randAppleGen():
     """
     :return:
     """
-    randAppleX = round(random.randrange(40, display_width-AppleThickness-40))
-    randAppleY = round(random.randrange(30, display_height-AppleThickness-30))
+    rand_apple_x = round(random.randrange(40, display_width - AppleThickness - 40))
+    rand_apple_y = round(random.randrange(30, display_height - AppleThickness - 30))
 
-    return randAppleX, randAppleY
+    return rand_apple_x, rand_apple_y
 
 
 def text_to_button(msg, color, inactive_color, buttonx, buttony, buttonwidth, buttonheight, size = None, action = None, blink = False):
@@ -195,7 +195,7 @@ def text_to_button(msg, color, inactive_color, buttonx, buttony, buttonwidth, bu
             if action == 'controls':
                 game_controls()
             if action == 'play':
-                gameLoop()
+                game_loop()
             if action == 'main':
                 game_intro()
         # pygame.display.update()
@@ -252,7 +252,7 @@ def game_intro():
 #            if action == 'controls':
 #                game_controls()
 #            if action == 'play':
-#                gameLoop()
+#                game_loop()
 #            if action == 'main':
 #                game_intro()
 #
@@ -266,11 +266,11 @@ def game_intro():
 #    text_to_button(text, white, x,y,width,height)
 
 
-def Snake(block_size, snakeList):
+def Snake(block_size, snake_list):
     """
     functionality for rotation
     :param block_size:
-    :param snakeList:
+    :param snake_list:
     :return:
     """
 
@@ -285,9 +285,9 @@ def Snake(block_size, snakeList):
     if direction == 'down':
         head = pygame.transform.rotate(img, 180)
 
-    gameDisplay.blit(head,  (snakeList[-1][0], snakeList[-1][1]))
+    gameDisplay.blit(head, (snake_list[-1][0], snake_list[-1][1]))
 
-    for XnY in snakeList[:-1]:
+    for XnY in snake_list[:-1]:
         gameDisplay.blit(skin,  (XnY[0], XnY[1]))
         # pygame.draw.rect(gameDisplay, green, [XnY[0], XnY[1], block_size, block_size])
     
@@ -357,15 +357,15 @@ def health_bars(snake_health):
     pygame.draw.rect(gameDisplay, snake_health_color , (display_width-130, 26, snake_health, 20))
 
 
-def gameLoop():
+def game_loop():
     global direction
-    global snakeLength
+    global snake_length
     direction = 'right'
     
-    score_value = 1   
+    score_value = 1
 
-    gameExit = False
-    gameOver = False
+    game_exit = False
+    game_over = False
 
     lead_x = display_width/2
     lead_y = display_height/2
@@ -375,29 +375,28 @@ def gameLoop():
 
     snake_health = 90
 
-    snakeList = []
-    snakeLength = 1
-    
-    randAppleX, randAppleY = randAppleGen()
+    snake_list = []
+    snake_length = 1
+
+    rand_apple_x, rand_apple_y = randAppleGen()
     
     # The event handling loop is:
-    while not gameExit:
-        # if gameOver == True:
+    while not game_exit:
+        # if game_over == True:
         #     pygame.display.update()
 
-        while gameOver == True:
-            gameOverAnim.play()
-            gameDisplay.blit(bgd, (0,0))
+        while game_over is True:
+            game_overAnim.play()
+            gameDisplay.blit(bgd, (0, 0))
             gameDisplay.blit(game_over_face, (300, 200))
-            Snake(block_size, snakeList)
-            gameDisplay.blit(bgdside, (0,0))
-            gameDisplay.blit(sign, [display_width/2 - 30,display_height-20])
+            Snake(block_size, snake_list)
+            gameDisplay.blit(bgdside, (0, 0))
+            gameDisplay.blit(sign, [display_width / 2 - 30, display_height - 20])
             health_bars(snake_health)
             # pygame.time.set_timer(Text1, 10)
             # pygame.time.set_timer(Text2, 90)
-            
-            
-            gameOverAnim.blit(gameDisplay, (263, 352))
+
+            game_overAnim.blit(gameDisplay, (263, 352))
             # message_to_screen("Game Over",
             #                   red,
             #                   y_displace=180,
@@ -428,8 +427,8 @@ def gameLoop():
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    gameExit = True
-                    gameOver = False
+                    game_exit = True
+                    game_over = False
 
             clock.tick(300)
             
@@ -437,14 +436,14 @@ def gameLoop():
 
             # if event.type == pygame.KEYDOWN:
             #     if event.key == pygame.K_q:
-            #         gameExit = True
-            #         gameOver = False
+            #         game_exit = True
+            #         game_over = False
             #     if event.key == pygame.K_c:
-            #         gameLoop()
+            #         game_loop()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                gameExit = True
+                game_exit = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     direction = 'left'
@@ -466,9 +465,9 @@ def gameLoop():
                     pause()
         
         if lead_x >= display_width-35 or lead_x <= 25 or lead_y >= display_height-20 or lead_y <= 10:
-             snake_health = 1
-             pygame.display.update()
-             gameOver = True
+            snake_health = 1
+            pygame.display.update()
+            game_over = True
              
             # Code to write if you want the stuff to stop moving when you relase a key
             # if event.type == pygame.KEYUP:
@@ -483,42 +482,43 @@ def gameLoop():
         
         # pygame.display.update()
 
-        # pygame.draw.rect(gameDisplay, red, [randAppleX, randAppleY, AppleThickness, AppleThickness])
+        # pygame.draw.rect(gameDisplay, red, [rand_apple_x, rand_apple_y, AppleThickness, AppleThickness])
 
-        gameDisplay.blit(eba, (randAppleX, randAppleY))
-        snakeHead = []
-        snakeHead.append(lead_x)
-        snakeHead.append(lead_y)
-        snakeList.append(snakeHead)
+        gameDisplay.blit(eba, (rand_apple_x, rand_apple_y))
+        snake_head = list()
+        snake_head.append(lead_x)
+        snake_head.append(lead_y)
+        snake_list.append(snake_head)
 
-        if len(snakeList) > snakeLength:
-               del snakeList[0]
+        if len(snake_list) > snake_length:
+            del snake_list[0]
 
         # collision detection for loop:
-        for eachSegment in snakeList[:-1]:
-            if eachSegment == snakeHead:
-                snake_health = snake_health - 30
+        for eachSegment in snake_list[:-1]:
+            if eachSegment == snake_head:
+                snake_health -= 30
                 if snake_health <= 0:
-                    gameOver = True
-            
-        #displaying the game interface and the snake
-        Snake(block_size, snakeList)
-        gameDisplay.blit(bgdside, (0,0))
-        gameDisplay.blit(sign, [display_width/2 - 30,display_height-20])
+                    game_over = True
+
+        # displaying the game interface and the snake
+        Snake(block_size, snake_list)
+        gameDisplay.blit(bgdside, (0, 0))
+        gameDisplay.blit(sign, [display_width / 2 - 30, display_height - 20])
         score_update((score_value-1)*2)
         health_bars(snake_health)
         pygame.display.update()
 
-        #And this is the code for when the snake 'eats' an apple
-        if (lead_x > randAppleX and lead_x < randAppleX + AppleThickness) or (lead_x + block_size > randAppleX and lead_x + block_size < randAppleX + AppleThickness):
-            if lead_y > randAppleY and lead_y < randAppleY + AppleThickness:  
-                randAppleX, randAppleY = randAppleGen()
+        # And this is the code for when the snake 'eats' an apple
+        if (rand_apple_x < lead_x < rand_apple_x + AppleThickness) or (
+                rand_apple_x < lead_x + block_size < rand_apple_x + AppleThickness):
+            if rand_apple_y < lead_y < rand_apple_y + AppleThickness:
+                rand_apple_x, rand_apple_y = randAppleGen()
                 score_value += 4
-                snakeLength += 4
-            elif  lead_y + block_size > randAppleY and lead_y + block_size < randAppleY + AppleThickness:
-               randAppleX, randAppleY = randAppleGen()
-               snakeLength += 4
-               score_value += 4
+                snake_length += 4
+            elif rand_apple_y < lead_y + block_size < rand_apple_y + AppleThickness:
+                rand_apple_x, rand_apple_y = randAppleGen()
+                snake_length += 4
+                score_value += 4
 
         # The bonus handling code:
         # bonus_text = med_font.render('Bonus:  +4', True, black)
@@ -528,8 +528,8 @@ def gameLoop():
             bonusAnim.blit(gameDisplay, (display_width*0.35, display_height*0.3))
             pygame.display.update()
             if score_value == 21 or score_value == 53 or score_value == 85 or score_value == 117 or score_value == 149:
-                score_value = score_value + 4
-                snakeLength = snakeLength + 4
+                score_value += 4
+                snake_length += 4
 
         clock.tick(FPS)
 
@@ -537,4 +537,4 @@ def gameLoop():
     quit()
 
 game_intro()
-gameLoop()
+game_loop()
