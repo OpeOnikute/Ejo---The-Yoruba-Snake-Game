@@ -35,3 +35,9 @@ I just haven't gotten around to doing it yet.
 
 That's pretty much it. Let's help make Ejo. I'd update this readme as the need arises.
 
+<h4>Re-write in Javascript</h4>
+Would be nice to have this on the browser.
+
+### How to use
+- Setup your virtualenv using instructions from [here](https://docs.python-guide.org/dev/virtualenvs/).
+- In that environment, run `pip install -r requirements.txt`

@@ -8,7 +8,7 @@ import random
 
 pygame.init()
 
-images_path = os.getcwd() + "\images\\"
+images_path = os.getcwd() + "/images/"
 
 # Setting the display width and height
 display_width = 800
@@ -54,18 +54,18 @@ FPS = 30
 direction = 'right'
 
 # Loading the fonts to be used
-extra_small_font = pygame.font.SysFont(r'comicsans', 15)
-small_font = pygame.font.SysFont(r'comicsans', 20)
+extra_small_font = pygame.font.Font(r'fonts/comicsans.ttf', 15)
+small_font = pygame.font.Font(r'fonts/comicsans.ttf', 20)
 # small2font = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 40)
-small2font = pygame.font.SysFont(r'comicsans', 40)
-med_font = pygame.font.SysFont(r'comicsans', 50)
+small2font = pygame.font.Font(r'fonts/comicsans.ttf', 40)
+med_font = pygame.font.Font(r'fonts/comicsans.ttf', 50)
 # med_fontButton = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 50)
-med_fontButton = pygame.font.SysFont(r'comicsans', 50)
+med_fontButton = pygame.font.Font(r'fonts/comicsans.ttf', 50)
 # med_fontButton2 = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts\eyelevation6.ttf', 80)
-med_fontButton2 = pygame.font.SysFont(r'comicsans', 80)
-large_font = pygame.font.SysFont(r'comicsans', 80)
+med_fontButton2 = pygame.font.Font(r'fonts/comicsans.ttf', 80)
+large_font = pygame.font.Font(r'fonts/comicsans.ttf', 80)
 # rendering the font for the copyright display at the bottom.
-sign = extra_small_font.render('©2017.', True, white)
+sign = extra_small_font.render('copyright 2019.', True, white)
 
 
 def message_to_screen(msg, color, y_displace=0, x_displace=0, size="small", font=None, font_size=None):
@@ -311,7 +311,7 @@ def text_objects(text, color, size = None,  font = None, fontSize = None):
     elif size == 'large':
         text_surface = large_font.render(text, True, color)
     elif font is not None:
-        font = pygame.font.Font(r'C:\Users\Ope O\Downloads\Fonts' + '\\' + font , fontSize)
+        font = pygame.font.Font(r'fonts/' + font , fontSize)
         text_surface = font.render(text, True, color)
 
     return text_surface, text_surface.get_rect()
