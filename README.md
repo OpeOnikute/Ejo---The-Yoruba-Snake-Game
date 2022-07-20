@@ -41,3 +41,7 @@ Would be nice to have this on the browser.
 ### How to use
 - Setup your virtualenv using instructions from [here](https://docs.python-guide.org/dev/virtualenvs/).
 - In that environment, run `pip install -r requirements.txt`
+- Start the game `python main.py`
+
+### Running in a container
+If you need to run in a container for some reason (and are using a MacOS), you can follow the final attempt here: https://opeonikute.dev/posts/running-pygame-in-a-docker-container-macos
